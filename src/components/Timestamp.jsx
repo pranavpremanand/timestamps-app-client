@@ -21,7 +21,7 @@ const Timestamp = () => {
       setSpinner();
       setErr(false);
       try {
-        const response = await axios.post("http://localhost:5000/difference", {
+        const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/difference`, {
           timestamp1,
           timestamp2,
         });
