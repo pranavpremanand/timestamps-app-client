@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Spinner from "./components/Spinner";
+import Timestamp from "./components/Timestamp";
+import { SpinnerContext } from "./components/SpinnerContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
+  const [spinner, setSpinner] = useState(false);
+  const spinnerStatus = () => {
+    setSpinner((prev) => !prev);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SpinnerContext.Provider
+        value={{ spinner: spinnerStatus, setSpinner: spinnerStatus }}
+      >
+        <Toaster position="top-center" reverseOrder={false} />
+        {spinner && <Spinner />}
+        <Timestamp />
+      </SpinnerContext.Provider>
     </div>
   );
 }
